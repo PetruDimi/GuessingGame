@@ -68,8 +68,42 @@ const getPlayerGuess = () => {
   }
 };
 
-alert(dialog.welcome);
+const checkGuess = (userNum, correctNum) => {
+  if (userNum < correctNum) {
+    return `Too low ${dialog.incorrectGuess}`;
+  }
+  if (userNum > correctNum) {
+    return `Too high ${dialog.incorrectGuess}`;
+  }
+  if (userNum === correctNum) {
+    return `${dialog.correctGuess}`;
+  }
+};
 
-const test = getPlayerGuess();
-console.log(test);
+const game = () => {
+  const numberToBeGuessed = generateRandomNumber();
+  let counter;
+
+  for (counter = 9; counter >= 0; counter--) {
+    const userGuess = getPlayerGuess();
+    console.log(checkGuess(userGuess, numberToBeGuessed));
+    if (userGuess === numberToBeGuessed) {
+      break;
+    } else if (counter !== 0) {
+      console.log(
+        counter === 1
+          ? "You have 1 more guess."
+          : `You have ${counter} guesses remaining.`
+      );
+    } else {
+      console.log("You lost! And now your soul is mine!");
+      return;
+    }
+  }
+
+  return `You did it using ${10 - counter} attempts`;
+};
+
+alert(dialog.welcome);
+game();
 
