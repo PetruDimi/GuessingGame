@@ -69,6 +69,12 @@ const getPlayerGuess = () => {
 };
 
 const checkGuess = (userNum, correctNum) => {
+  if(userNum < correctNum && userNum>correctNum-5){
+    return `Very warm but still too low ${dialog.incorrectGuess}`;
+  }
+  if(userNum > correctNum && userNum<correctNum+5){
+    return `Very warm but still too high ${dialog.incorrectGuess}`;
+  }
   if (userNum < correctNum) {
     return `Too low ${dialog.incorrectGuess}`;
   }
@@ -82,12 +88,16 @@ const checkGuess = (userNum, correctNum) => {
 
 const game = () => {
   const numberToBeGuessed = generateRandomNumber();
+  // console.log(numberToBeGuessed);
   let counter;
+  const startTime=new Date().getTime() / 1000;
 
   for (counter = 9; counter >= 0; counter--) {
     const userGuess = getPlayerGuess();
     console.log(checkGuess(userGuess, numberToBeGuessed));
     if (userGuess === numberToBeGuessed) {
+      const endTime=new Date().getTime() / 1000;
+      console.log(`You did it using ${10 - counter} attempts and in ${endTime-startTime} seconds`)
       break;
     } else if (counter !== 0) {
       console.log(
