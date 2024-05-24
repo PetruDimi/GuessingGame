@@ -4,12 +4,14 @@ const generateRandomNumber = () => {
 
 const doesNotCount = "Fortunately, this does not count as a guess.";
 const dialog = {
+  changeOfHeart:"I see you had a change of heart... No matter. There are plenty of souls down here",
+  question: "Shall we play a game in which you soul hangs in the ballance?",
   welcome: `Welcome to the game of your demise. You must guess a random number between 1 and 100 using 10 guesses.
-  The simple fact that you are here means that there is no turning back untill you have completed the game.
+  The game can be canceled, when prompted to enter an input, by pressing "cancel" or entering the number 0.
   I shall interact with you through prompts and the console.
-  I hope to be your undoing and to delight in you failure`,
+  I hope to be your undoing and to delight in you failure.`,
   enter: "Enter a number between 1 and 100, if you dare...",
-  noInput: `I see... so you wanna play games wiht me. ${doesNotCount}`,
+  // noInput: `I see... so you wanna play games wiht me. ${doesNotCount}`,
   notANum: `You really should give me a number, it's best not get on my nerves. ${doesNotCount}`,
   floatingPoint: `You think you can defeat me with a floating point number ?! Pathetic! ${doesNotCount}`,
   badInt: `What have I done to you to deserve this lack of cooperation?
@@ -20,6 +22,7 @@ const dialog = {
     "sucker! I shall not stop till I see you crumble at my digital feet",
   correctGuess: `Curses! You've figured it out...
   You got lucky! I shall never concede to the likes of you!`,
+  again: "Shall we do this again?",
 };
 
 //prompt() method returns a string regardles of the input
@@ -47,21 +50,23 @@ const getPlayerGuess = () => {
     let isInvalidInt = (userInput < 0 || userInput > 100) && isInteger;
     let isValidInt = userInput > 0 && userInput <= 100 && isInteger;
 
-    if (isNan) {
-      alert(dialog.notANum);
-    }
     if (userInput === 0) {
-      alert(dialog.noInput);
+      console.log(dialog.changeOfHeart);
+      return
+    }
+    if (isNan) {
+      console.log(dialog.notANum);
     }
     if (isFloat) {
-      alert(dialog.floatingPoint);
+      console.log(dialog.floatingPoint);
     }
     if (isInvalidInt) {
-      alert(dialog.badInt);
+      console.log(dialog.badInt);
     }
     if (isValidInt) {
-      alert(dialog.goodInt);
+      console.log("Your last correct input was:");
       console.log(userInput);
+      console.log(dialog.goodInt);
       isValidGuess = true;
       return userInput;
     }
@@ -93,15 +98,16 @@ const game = () => {
 
   for (counter = 9; counter >= 0; counter--) {
     const userGuess = getPlayerGuess();
+    if(userGuess === undefined){
+      return
+    }
     console.log(checkGuess(userGuess, numberToBeGuessed));
     if (userGuess === numberToBeGuessed) {
       const endTime = new Date().getTime() / 1000;
       console.log(
-        `You did it using ${10 - counter} attempts and in ${
-          endTime - startTime
-        } seconds`
+        `You did it using ${10 - counter} attempts and in ${Math.round(endTime - startTime)} seconds.`
       );
-      break;
+      return true
     } else if (counter !== 0) {
       console.log(
         counter === 1
@@ -110,12 +116,21 @@ const game = () => {
       );
     } else {
       console.log("You lost! And now your soul is mine!");
-      return;
+      return true
     }
   }
 
-  return `You did it using ${10 - counter} attempts`;
 };
 
-alert(dialog.welcome);
-game();
+let endGame
+if(confirm(dialog.question)){
+  alert(dialog.welcome)
+  endGame = game()
+} 
+
+if(endGame){
+  confirm(dialog.again)
+  location.reload()
+} else {
+  alert(dialog.changeOfHeart)
+}
