@@ -88,7 +88,6 @@ const checkGuess = (userNum, correctNum) => {
 
 const game = () => {
   const numberToBeGuessed = generateRandomNumber();
-  // console.log(numberToBeGuessed);
   let counter;
   const startTime=new Date().getTime() / 1000;
 
