@@ -109,10 +109,15 @@ const game = () => {
 
 };
 
-
+let endGame
 if(confirm(dialog.question)){
   alert(dialog.welcome)
-  game()
+  endGame = game()
 } 
 
-
+if(endGame){
+  confirm(dialog.again)
+  location.reload()
+} else {
+  alert(dialog.changeOfHeart)
+}
