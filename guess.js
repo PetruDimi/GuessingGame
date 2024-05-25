@@ -109,18 +109,10 @@ const game = () => {
 
 };
 
-let endGame
+
 if(confirm(dialog.question)){
   alert(dialog.welcome)
-  setTimeout(() => {
-    endGame = game()
-  }, 1000);
-  
+  game()
 } 
 
-if(endGame){
-  confirm(dialog.again)
-  location.reload()
-} else {
-  alert(dialog.changeOfHeart)
-}
+
