@@ -112,7 +112,10 @@ const game = () => {
 let endGame
 if(confirm(dialog.question)){
   alert(dialog.welcome)
-  endGame = game()
+  setTimeout(() => {
+    endGame = game()
+  }, 1000);
+  
 } 
 
 if(endGame){
