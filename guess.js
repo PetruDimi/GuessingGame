@@ -5,13 +5,12 @@ const generateRandomNumber = () => {
 const doesNotCount = "Fortunately, this does not count as a guess.";
 const dialog = {
   changeOfHeart:"I see you had a change of heart... No matter. There are plenty of souls down here",
-  question: "Shall we play a game in which you soul hangs in the ballance?",
+  question: "Shall we play a game in which your soul hangs in the ballance?",
   welcome: `Welcome to the game of your demise. You must guess a random number between 1 and 100 using 10 guesses.
   The game can be canceled, when prompted to enter an input, by pressing "cancel" or entering the number 0.
   I shall interact with you through prompts and the console.
-  I hope to be your undoing and to delight in you failure.`,
+  I hope to be your undoing and to delight in your failure.`,
   enter: "Enter a number between 1 and 100, if you dare...",
-  // noInput: `I see... so you wanna play games wiht me. ${doesNotCount}`,
   notANum: `You really should give me a number, it's best not get on my nerves. ${doesNotCount}`,
   floatingPoint: `You think you can defeat me with a floating point number ?! Pathetic! ${doesNotCount}`,
   badInt: `What have I done to you to deserve this lack of cooperation?
@@ -24,18 +23,6 @@ const dialog = {
   You got lucky! I shall never concede to the likes of you!`,
   again: "Shall we do this again?",
 };
-
-//prompt() method returns a string regardles of the input
-//if the string is a number we can transform
-//the input to be a number type using the unary operator "+"
-//if the string is not a number, but characters and we use the "+" operator
-//the result is NaN.
-//And the data type of NaN is number.
-//So if we use the unary operator we should
-//check if the input is NaN rather then checking if
-//the input is of a number type.
-//Also, the unary operator used on an empty string
-//return the number 0.
 
 const getPlayerGuess = () => {
   let userInput;
